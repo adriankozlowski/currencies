@@ -71,11 +71,16 @@ public class Main {
         JsonParser parser = new JsonParser();
         JsonArray o = parser.parse(stringBuilder.toString()).getAsJsonArray();
 
-        JsonObject jsonObject = o.getAsJsonObject();
-        jsonObject.get("rates").getAsJsonArray();
-
-        String s = gson.toJson(o);
-        System.out.println(s);
+        JsonArray table = o.getAsJsonArray();
+        JsonObject tableDetails = table.get(0).getAsJsonObject();
+        JsonArray rates = tableDetails.get("rates").getAsJsonArray();
+        Iterator<JsonElement> iterator = rates.iterator();
+        while(iterator.hasNext()) {
+            JsonObject next = (JsonObject) iterator.next();
+            System.out.println(next.get("code").getAsString());
+        }
+//        String s = gson.toJson(o);
+//        System.out.println(s);
     }
 
     @Override
