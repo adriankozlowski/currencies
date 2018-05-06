@@ -18,7 +18,7 @@ public class Main {
 
         try {
             //tabele, ktore rozpatrujemy
-            String[] tables = {"A", "B", "C"};
+            String[] tables = {"A", "B"};
             //iterujemy przez tablice tabel
             List<String> result = new ArrayList<>();
             for (String table : tables) {
@@ -75,8 +75,12 @@ public class Main {
         JsonObject tableDetails = table.get(0).getAsJsonObject();
         JsonArray rates = tableDetails.get("rates").getAsJsonArray();
         Iterator<JsonElement> iterator = rates.iterator();
+        HashMap<String, MyCurrency> map = new HashMap<String, MyCurrency>();
         while(iterator.hasNext()) {
             JsonObject next = (JsonObject) iterator.next();
+            map.put(next.get("code").getAsString(), new MyCurrency(next.get("code").getAsString()
+                    ,next.get("currency").getAsString()
+            ,next.get("mid").getAsBigDecimal()));
             System.out.println(next.get("code").getAsString());
         }
 //        String s = gson.toJson(o);
